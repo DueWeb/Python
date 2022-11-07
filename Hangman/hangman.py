@@ -1,6 +1,6 @@
 import re
 import random
-from Hangman.word_lists import six_worded_list, five_worded_list, four_worded_list, eight_worded_list, seven_worded_list, three_worded_list
+from word_lists import six_worded_list, five_worded_list, four_worded_list, eight_worded_list, seven_worded_list, three_worded_list
 def welcome_options():
     print("\nWelcome to Hangman\n")
     print("1. " + "Noobie (10 lives)")
