@@ -1,8 +1,11 @@
 # Imports
+from tkinter import *
 import tkinter as tk
 from tkinter import simpledialog
 from network import connect, send
-
+from string import ascii_lowercase
+from hangman.word_list import three_worded_list, four_worded_list, five_worded_list, six_worded_list, seven_worded_list, eight_worded_list
+from hangman import word_list
 
 # Program function definitions
 def main():  # main program loop
@@ -39,6 +42,29 @@ def input(event):  # function for handling keyboard events
 
 # Application
 window = tk.Tk()
+window.title=("Hangman")
+photos = [
+    PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang0.png"), PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang1.png"),
+    PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang2.png"), PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang3.png"),
+    PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang4.png"), PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang5.png"), 
+    PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang6.png"), PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang7.png"), 
+    PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang8.png"), PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang9.png"), 
+    PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang10.png"), PhotoImage(file="Skrivbord/hello-python/Hangman_img/hang11.png")]
+
+imgLabel = Label(window)
+imgLabel.grid(row=0, column=0, columnspan=3, padx=10, pady=40)
+imgLabel.config(image=photos[0])
+
+lblWord=Stringvar()
+Label(window, textvariable=lblWord)
+
+
+
+n=0
+for i in ascii_lowercase:
+    Button(window, text=i, command=lambda i=i: guess(i), font=("Arial 14"), width=4).grid(row=1+n//9, column=n%9)
+    n+=1
+
 local_user: str = None
 
 window.geometry('800x800')  # set window size
