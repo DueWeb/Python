@@ -1,11 +1,15 @@
 import re
 import random
 from word_list import six_worded_list, five_worded_list, four_worded_list, eight_worded_list, seven_worded_list, three_worded_list
+from tkinter import *
+
+
 def welcome_options():
     print("\nWelcome to Hangman\n")
     print("1. " + "Noobie (10 lives)")
     print("2. " + "Intermediate (6 lives)")
     print("3. " + "Expert (3 lives)")
+
 
 def game_setup():
     global max_life, wordList, word
@@ -20,9 +24,10 @@ def game_setup():
         wordList = seven_worded_list + eight_worded_list
         max_life = 3
     else:
-        print ("\nThat is not a valid difficulty")
-    word=random.choice(wordList)
-    word=word.lower()
+        print("\nThat is not a valid difficulty")
+    word = random.choice(wordList)
+    word = word.lower()
+
 
 def check():
     life = max_life
@@ -41,11 +46,11 @@ def check():
             print(guessed_letters)
         if life < 1:
             print("You have lost")
-        if len(letters_in_word)== 0:
+        if len(letters_in_word) == 0:
             print("you have won")
             break
-        
+
+
 welcome_options()
 game_setup()
 check()
-    
