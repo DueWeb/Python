@@ -26,19 +26,27 @@ def game_setup():
     else:
         print("\nThat is not a valid difficulty")
     word = random.choice(wordList)
+    word = "butter"
     word = word.lower()
 
 
 def check():
     life = max_life
     letters_in_word = [*word]
+    print(letters_in_word)
+    revealed_letters = [*(len(word)*'_')]
     guessed_letters = []
 
     while life > 0:
         guess = input("\nGuess the characters in the hidden word\n")
         guess = guess.lower()
+        # google on enumerate to get index
         if guess in letters_in_word:
-            letters_in_word.remove(guess)
+            for index, char in enumerate(letters_in_word):
+                if guess == char:
+                    revealed_letters.insert(index,char)
+                    revealed_letters.pop(index+1)
+
         else:
             life -= 1
             guessed_letters.append(guess)
@@ -49,6 +57,8 @@ def check():
         if len(letters_in_word) == 0:
             print("you have won")
             break
+        print(f'revealed letters: {revealed_letters}')
+
 
 
 welcome_options()
