@@ -116,6 +116,7 @@ def on_network_message(timestamp, user, message):
 class Hangman(tk.Tk):
 
     def __init__(self):
+        self.user_dif = None
         self.welcome_options()
         self.user_dif = game_state['shared']['user_dif']
         self.max_life = game_state['shared']['max_life']
@@ -157,6 +158,7 @@ class Hangman(tk.Tk):
         self.revealed_letters = [*(len(self.word)*'_')]
         self.guessed_letters = []
         self.life = self.max_life
+        send(game_state['shared'])
 
     def welcome_options(self):
         print("\nWelcome to Hangman\n")
@@ -165,8 +167,12 @@ class Hangman(tk.Tk):
         print("3. " + "Expert (3 lives)")
 
     def draw_keyboard(self):
-        self.keyboard = tk.Toplevel()
-        self.keyboard.geometry('800x200')
+        # two windows
+        # self.keyboard = tk.Toplevel()
+        # self.keyboard.geometry('800x200')
+        # one window
+        self.keyboard = tk.Frame(self)
+        self.keyboard.pack()
         n = 0
         for letter in letters:
             tk.Button(self.keyboard, text=letter, command=lambda guess=letter: self.check(guess),
@@ -210,18 +216,15 @@ local_user: str = None
 
 
 def start():
-    # hide some things initially
-    ### j('.wait, .ball, .paddle-1, .paddle-2').hide()
-    # show the content/body (hidden by css)
-    # j('body').show()
+
     # connect to network
     game_state['me'] = simpledialog.askstring(
-        'Input', 'Your user name', parent=Hangman)
+        'Input', 'Your user name', parent=Hangman(tk.Tk))
     # note: adding prefix so I don't disturb
     # other class mates / developers using the same
     # network library
     channel = 'kevin_hang' + simpledialog.askstring(
-        'Input', 'Channel', parent=Hangman)
+        'Input', 'Channel', parent=Hangman(tk.Tk))
     connect(channel, game_state['me'], on_network_message)
     message.config(text='Waiting for an opponent...')
     message.place(y=200, x=100)
